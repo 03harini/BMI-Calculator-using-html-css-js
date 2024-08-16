@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+    
+        body{
+            background-image: url("https://i.pinimg.com/564x/1c/a0/89/1ca089148f708ef455e1bda5c9aa9417.jpg");
+            
+        }
+        
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-image: url("https://i.pinimg.com/564x/ea/64/ed/ea64edd5ffac5d5ac31bb126dbca00af.jpg");
+            
+            
+        }
+        h3 {
+            text-align: center; 
+            color: #fff; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding: 10px; 
+            border-radius: 5px; 
+            font-size: 24px;  
+            font-weight: bold; 
+            margin: 20px 0; 
+        }
+        td {
+            padding: 10px;
+        }
+        input, select, textarea {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h3><center>BMI CALCULATOR</center></h3>
+    <form>
+        <table>
+            <tr>
+                <td>
+                    <label for="weight">Weight</label>
+                </td>
+                <td>
+                    <input type="number" id="weight" name="weight" step="0.01">
+                </td>
+                <td>
+                    <select name="weightUnits" id="weightUnits">
+                        <option value="kg">Kg</option>
+                        <option value="pounds">Pounds</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="height">Height</label>
+                </td>
+                <td>
+                    <input type="number" id="height" name="height" step="0.01">
+                </td>
+                <td>
+                    <select name="heightUnits" id="heightUnits">
+                        <option value="cm">Centimeter</option>
+                        <option value="meter">Meter</option>
+                        <option value="inches">Inches</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="reset" value="Clear">
+                    <input type="button" value="Calculate" onclick="calculateBMI()">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <textarea id="Output" readonly placeholder="BMI"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <textarea id="message" readonly placeholder="Message"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById("weight").value);
+            let height = parseFloat(document.getElementById("height").value);
+            let weightUnit = document.getElementById("weightUnits").value;
+            let heightUnit = document.getElementById("heightUnits").value;
+
+            let heightInMeters;
+            let weightInKg;
+
+            
+            if (weightUnit === "pounds") {
+                weightInKg = weight * 0.453592;
+            } else {
+                weightInKg = weight;
+            }
+
+            
+            if (heightUnit === "inches") {
+                heightInMeters = height * 0.0254;
+            } else if (heightUnit === "cm") {
+                heightInMeters = height * 0.01;
+            } else {
+                heightInMeters = height;
+            }
+
+           
+            let bmi = weightInKg / (heightInMeters * heightInMeters);
+            let message = "";
+
+            
+            if (bmi < 18.5) {
+                message = "You are Underweight";
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                message = "You are Healthy";
+            } else if (bmi >= 25 && bmi < 29.9) {
+                message = "You are Overweight";
+            } else {
+                message = "You are Obese";
+            }
+
+            
+            document.getElementById("Output").value = bmi.toFixed(2);
+            document.getElementById("message").value = message;
+        }
+    </script>
+</body>
+</html>
